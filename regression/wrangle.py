@@ -14,6 +14,7 @@ telco = pd.read_sql("""select customer_id, tenure, monthly_charges, total_charge
 telco = telco[telco.total_charges != ' ']
 telco.total_charges = telco.total_charges.astype(float)
 
+
 def wrangle_telco():
     charges = pd.read_sql("""select customer_id, tenure, monthly_charges, total_charges 
                     from customers 
@@ -23,4 +24,6 @@ def wrangle_telco():
     charges.total_charges = charges.total_charges.astype(float)
     
     return charges
+
+
 
