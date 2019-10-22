@@ -43,11 +43,10 @@ def baseline_mean_errors(y):
     return SSE_baseline, MSE_baseline, RMSE_baseline
 
 
-"""def better_than_baseline(y, yhat):
-    SSE_baseline = baseline_mean_errors(y)['sse']
-    SSE_model = regression_errors(y, yhat)['sse']
+def better_than_baseline(y, yhat):
+    SSE_baseline = baseline_mean_errors(y)[0]
+    SSE_model = regression_errors(y, yhat)[0]
     return SSE_model < SSE_baseline
-"""
 
 
 def model_significance(ols_model):

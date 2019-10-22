@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 
 data = wrangle.wrangle_telco()
 X = data.drop(columns='total_charges').set_index('customer_id')
-y = pd.DataFrame(data.total_charges)
+y = pd.DataFrame(data.total_charges).set_index(data['customer_id'])
 
 
 def split_my_data(X):
@@ -52,7 +52,7 @@ def min_max_scaler(X):
     train = pd.DataFrame(scaler.transform(train), columns=train.columns.values).set_index([train.index.values])
     test =  pd.DataFrame(scaler.transform(test), columns=test.columns.values).set_index([test.index.values])
     return train, test, scaler
-    
+
 
 def iqr_robust_scaler(X):
     train, test = split_my_data(X)
