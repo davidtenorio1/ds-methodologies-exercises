@@ -21,7 +21,7 @@ def prep_iris(iris):
     return iris
 
 
-def prep_titanic(iris):
+def prep_titanic(titanic):
     int_encoder = LabelEncoder()
     int_encoder.fit(titanic.embark_town)
     titanic.embark_town = int_encoder.transform(titanic.embark_town)
