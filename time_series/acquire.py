@@ -20,7 +20,7 @@ def get_items():
         response = requests.get(base_url + '/api/v1/items?page=' + str(i))
         response = response.json()
         items_df = items_df.append(pd.DataFrame(response['payload']['items']))
-    items_df.to_csv(r'items.csv')
+    items_df.to_csv(r'items.csv', index=False)
 
 
 # 2.) Do the same thing, but for stores.
@@ -30,7 +30,7 @@ def get_stores():
     response = requests.get(base_url + '/api/v1/stores')
     data = response.json()
     stores = pd.DataFrame(data['payload']['stores'])
-    stores.to_csv(r'stores.csv')
+    stores.to_csv(r'stores.csv', index=False)
 
 
 
@@ -47,7 +47,7 @@ def get_sales():
         response = response.json()
         sales_df = sales_df.append(pd.DataFrame(response['payload']['sales']))
         print(183-p)
-    sales_df.to_csv(r'sales.csv')
+    sales_df.to_csv(r'sales.csv', index=False)
 
 
 # 4.) Save the data in your files to local csv files so that it will be faster to access in the future.
@@ -63,9 +63,10 @@ def combine():
     items = pd.read_csv('items.csv')
     stores = pd.read_csv('stores.csv')
     sales = pd.read_csv('sales.csv')
-    data = pd.merge(sales,stores,how='left')
-    data = pd.merge(data,items,how='left')
+    sales.rename(columns={'item': 'item_id', 'store': 'store_id'}, inplace = True)
+    data = sales.merge(items, on = 'item_id').merge(stores, on= 'store_id')
     return data
+
 
 
 # 6.) Acquire the Open Power Systems Data for Germany, which has been rapidly expanding its renewable energy production in recent years. The data set includes country-wide totals of electricity consumption, wind power production, and solar power production for 2006-2017. You can get the data here: https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv
