@@ -12,20 +12,6 @@ print(documentation.json()['payload'])
 # 1.) Using the code from the lesson as a guide, create a dataframe named items that has all of the data for items.
 # first page items
 
-"""items = pd.DataFrame(data['payload']['items'])
-# add page 2
-response = requests.get(base_url + data['payload']['next_page'])
-data = response.json()
-print('max_page: %s' % data['payload']['max_page'])
-print('next_page: %s' % data['payload']['next_page'])
-items = pd.concat([items, pd.DataFrame(data['payload']['items'])]).reset_index()
-# add third page
-response = requests.get(base_url + data['payload']['next_page'])
-data = response.json()
-print('max_page: %s' % data['payload']['max_page'])
-print('next_page: %s' % data['payload']['next_page'])
-items = pd.concat([items, pd.DataFrame(data['payload']['items'])]).reset_index()
-items.to_csv(r'items.csv')"""
 
 def get_items():
     base_url = 'https://python.zach.lol'
@@ -81,23 +67,14 @@ def combine():
     data = pd.merge(data,items,how='left')
     return data
 
-combine()
-
 
 # 6.) Acquire the Open Power Systems Data for Germany, which has been rapidly expanding its renewable energy production in recent years. The data set includes country-wide totals of electricity consumption, wind power production, and solar power production for 2006-2017. You can get the data here: https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv
 
+def get_opsd_data():
+    opsd = pd.read_csv('https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv')
+    opsd.to_csv('opsd.csv', index = False)
+
+
+
 # 7.) Make sure all the work that you have done above is reproducible. That is, you should put the code above into separate functions in the acquire.py file and be able to re-run the functions and get the same data.
 # done on previous lines
-
-
-
-
-
-
-
-
-
-
-
-
-
