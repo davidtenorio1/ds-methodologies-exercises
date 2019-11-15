@@ -7,7 +7,7 @@ data = response.json()
 payload = pd.DataFrame(data['payload'])
 # documentation
 documentation = requests.get(base_url + '/documentation')
-print(documentation.json()['payload'])
+#print(documentation.json()['payload'])
 
 # 1.) Using the code from the lesson as a guide, create a dataframe named items that has all of the data for items.
 # first page items
@@ -79,3 +79,10 @@ def get_opsd_data():
 
 # 7.) Make sure all the work that you have done above is reproducible. That is, you should put the code above into separate functions in the acquire.py file and be able to re-run the functions and get the same data.
 # done on previous lines
+
+'''items = pd.read_csv('items.csv')
+stores = pd.read_csv('stores.csv')
+sales = pd.read_csv('sales.csv')
+sales.rename(columns={'item': 'item_id', 'store': 'store_id'}, inplace = True)
+data = sales.merge(items, on = 'item_id').merge(stores, on= 'store_id')
+data.to_csv(r'all.csv', index=False)'''
