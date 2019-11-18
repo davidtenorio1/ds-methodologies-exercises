@@ -57,9 +57,6 @@ def get_sales():
 # 5.) Combine the data from your three separate dataframes into one large dataframe.
 
 def combine():
-    get_items()
-    get_stores()
-    get_sales()
     items = pd.read_csv('items.csv')
     stores = pd.read_csv('stores.csv')
     sales = pd.read_csv('sales.csv')
@@ -74,15 +71,10 @@ def combine():
 def get_opsd_data():
     opsd = pd.read_csv('https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv')
     opsd.to_csv('opsd.csv', index = False)
+    return opsd
 
 
 
 # 7.) Make sure all the work that you have done above is reproducible. That is, you should put the code above into separate functions in the acquire.py file and be able to re-run the functions and get the same data.
 # done on previous lines
 
-'''items = pd.read_csv('items.csv')
-stores = pd.read_csv('stores.csv')
-sales = pd.read_csv('sales.csv')
-sales.rename(columns={'item': 'item_id', 'store': 'store_id'}, inplace = True)
-data = sales.merge(items, on = 'item_id').merge(stores, on= 'store_id')
-data.to_csv(r'all.csv', index=False)'''
