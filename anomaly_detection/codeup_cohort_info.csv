@@ -1,0 +1,12 @@
+﻿cohort,start_date,end_date,cohort_grad_count,type
+Wrangell,7/23/18,11/1/18,17,web_dev
+Xanadu,9/17/18,2/1/19,17,web_dev
+Yosemite,11/6/18,4/3/19,19,web_dev
+Zion,,6/5/19,20,web_dev
+Ada,2/4/19,6/19/19,17,data_science
+Andromeda,3/18/19,7/1/19,20,web_dev
+Betelgeuse,5/28/19,10/1/19,15,web_dev
+Ceres,7/15/19,12/1/19,21,web_dev
+Bayes,8/19/19,1/1/20,20,data_science
+Deimos,9/16/19,,,web_dev
+Europa,11/4/19,,,web_dev
