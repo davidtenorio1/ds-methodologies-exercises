@@ -8,6 +8,7 @@ from nltk.corpus import stopwords
 import pandas as pd
 import acquire
 
+
 original_df = acquire.get_blog_posts()
 edited_df = original_df.copy()
 
@@ -67,3 +68,34 @@ def prep_articles(df):
     df["clean"] = df.body.apply(basic_clean).apply(remove_stopwords)
     df.drop(columns=["body"], inplace=True)
     return df
+
+
+
+
+
+
+
+
+def normalize(string):
+    """
+    Convert to all lowercase  
+    Normalize the unicode chars  
+    Remove any non-alpha or whitespace characters  
+    Remove any alpha strings with 2 characters or less  
+    """
+    string = string.lower()
+    string = unicodedata.normalize('NFKD', string).encode('ascii', 'ignore').decode('utf-8', 'ignore')
+    
+    # keep only alpha chars
+    string = re.sub(r'[^a-z]', ' ', string)
+    
+    # convert newlines and tabs to a single space
+    string = re.sub(r'[\r|\n|\r\n]+', ' ', string)
+    
+    # strip extra whitespace
+    string = string.strip()
+
+    # convert multiple space lines into just one
+    string = re.sub(r'\s+', ' ', string)
+    
+    return string
