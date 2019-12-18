@@ -2,3 +2,6 @@
 env.py
 .ipynb_checkpoints/
 __pycache__
+case.csv
+dept.csv
+source.csv
