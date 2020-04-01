@@ -1,29 +1,34 @@
 import pandas as pd
 import numpy as np
-import matplotlib as plt
-import seaborn as sns
-import env
-from env import user, password, host
 
-url = f'mysql+pymysql://{user}:{password}@{host}/telco_churn'
-telco = pd.read_sql("""select customer_id, tenure, monthly_charges, total_charges 
-                    from customers 
-                    join contract_types using (contract_type_id)
-                    where contract_type = 'Two year'""", url)
+from env import host, user, password
 
-telco = telco[telco.total_charges != ' ']
-telco.total_charges = telco.total_charges.astype(float)
+# function to get the url
 
+def get_db_url(db_name):
+    return f"mysql+pymysql://{user}:{password}@{host}/{db_name}"
+
+# function that passes my query and my url to return df
+
+def get_data_from_sql():
+    query = """
+    SELECT customer_id, monthly_charges, tenure, total_charges
+    FROM customers
+    WHERE contract_type_id = 3;
+    """
+    df = pd.read_sql(query, get_db_url('telco_churn'))
+    return df
+
+# function that rules them all by acquiring and prepping my df for exploration or modeling
 
 def wrangle_telco():
-    charges = pd.read_sql("""select customer_id, tenure, monthly_charges, total_charges 
-                    from customers 
-                    join contract_types using (contract_type_id)
-                    where contract_type = 'Two year'""", url)
-    charges = charges[charges.total_charges != ' ']
-    charges.total_charges = charges.total_charges.astype(float)
-    
-    return charges
-
-
-
+    """
+    Queries the telco_churn database
+    Returns a clean df with four columns:
+    customer_id(object), monthly_charges(float), tenure(int), total_charges(float)
+    """
+    df = get_data_from_sql()
+    df.tenure.replace(0, 1, inplace=True)
+    df.total_charges.replace(' ', df.monthly_charges, inplace=True)
+    df.total_charges = df.total_charges.astype(float)
+    return df
